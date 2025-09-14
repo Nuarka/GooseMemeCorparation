@@ -1,3 +1,10 @@
+*.psd filter=lfs diff=lfs merge=lfs -text
+\# filter=lfs diff=lfs merge=lfs -text
+примеры; filter=lfs diff=lfs merge=lfs -text
+подставь filter=lfs diff=lfs merge=lfs -text
+свои filter=lfs diff=lfs merge=lfs -text
+расширения filter=lfs diff=lfs merge=lfs -text
+*.mp4 filter=lfs diff=lfs merge=lfs -text
 *.py filter=lfs diff=lfs merge=lfs -text
 *.dat filter=lfs diff=lfs merge=lfs -text
 *.idx filter=lfs diff=lfs merge=lfs -text
