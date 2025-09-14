@@ -17,17 +17,19 @@ async def health():
 
 @app.get("/debug_llm")
 async def debug_llm():
-    # Явная проверка LLM (минуя Телеграм)
     text = await llm_chat("Привет! Скажи одно короткое предложение про гусей.")
     return {"ok": True, "echo": text}
-    
-async def tg_send(chat_id, text=None, meme=False):
-    async with httpx.AsyncClient(timeout=20) as c:
-        if meme:
-            # MVP: text meme; later you can switch to sendPhoto with real file_id
-            return await c.post(f"{API}/sendMessage",
-                                json={"chat_id": chat_id, "text": "Кря‑мем: [ ] (представь гусей) 🪿"})
-        return await c.post(f"{API}/sendMessage", json={"chat_id": chat_id, "text": text})
+
+@app.get("/debug_llm_probe")
+async def debug_llm_probe():
+    """
+    Возвращает детальную диагностику подключения к OpenRouter:
+    - видит ли ключ
+    - какие модели настроены
+    - status_code и тело ответа для PRIMARY и FALLBACK
+    """
+    info = await probe_models()
+    return {"ok": True, "probe": info}
 
 @app.post("/webhook")
 async def webhook(req: Request):
