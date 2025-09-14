@@ -47,3 +47,16 @@ async def webhook(req: Request):
 @app.get("/")
 def root():
     return {"ok": True, "app": "GooseBot", "hint": "use /serve or Telegram webhook"}
+
+    # app/main.py — в конец файла
+@app.get("/debug_llm")
+async def debug_llm():
+    # Мини-тест до OpenRouter без Телеграма
+    from .llm import llm_chat
+    out = await llm_chat(
+        [{"role":"system","content":"Скажи одно слово: Кря"},
+         {"role":"user","content":"Отвечай только этим словом."}],
+        max_tokens=8
+    )
+    return {"ok": True, "echo": out}
+
