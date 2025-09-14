@@ -44,6 +44,6 @@ async def webhook(req: Request):
 
     return {"ok": True}
 
-@app.get("/serve")
-def serve():
-    return {"ok": True, "ping": "🪿"}
+@app.get("/")
+def root():
+    return {"ok": True, "app": "GooseBot", "hint": "use /serve or Telegram webhook"}
