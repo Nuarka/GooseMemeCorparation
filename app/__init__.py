@@ -1,0 +1,1 @@
+# GooseBot package initializer
