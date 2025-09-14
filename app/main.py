@@ -4,10 +4,23 @@ import httpx
 from .logic import reply_dm, reply_group
 from .config import BOT_TOKEN
 
+from fastapi import FastAPI
+from .llm import llm_chat
+
 API = f"https://api.telegram.org/bot{BOT_TOKEN}"
 
 app = FastAPI(title="GooseBot")
 
+@app.get("/health")
+async def health():
+    return {"ok": True, "service": "goosebot"}
+
+@app.get("/debug_llm")
+async def debug_llm():
+    # Явная проверка LLM (минуя Телеграм)
+    text = await llm_chat("Привет! Скажи одно короткое предложение про гусей.")
+    return {"ok": True, "echo": text}
+    
 async def tg_send(chat_id, text=None, meme=False):
     async with httpx.AsyncClient(timeout=20) as c:
         if meme:
